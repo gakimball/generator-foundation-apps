@@ -99,12 +99,22 @@ gulp.task('copy:foundation', function(cb) {
 
 // Compiles Sass
 gulp.task('sass', function () {
+  <% if (props.sass === 'libsass') { %>
   return gulp.src('client/assets/scss/app.scss')
     .pipe($.sass({
       includePaths: paths.sass,
       outputStyle: (isProduction ? 'compressed' : 'nested'),
       errLogToConsole: true
     }))
+  <% } else { %>
+  return $.rubySass('client/assets/scss/app.scss', {
+    loadPath: paths.sass,
+    style: (isProduction ? 'compressed' : 'nested')
+  })
+    .on('error', function(err) {
+      console.error('Error', err.message);
+    })
+  <% } %>
     .pipe($.autoprefixer({
       browsers: ['last 2 versions', 'ie 10']
     }))

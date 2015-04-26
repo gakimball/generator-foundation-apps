@@ -90,7 +90,10 @@ module.exports = yeoman.generators.Base.extend({
 
     this.prompt(prompts, function (props) {
       this.props = props;
-      // To access props later use this.props.someOption;
+
+      if (props.sass === 'ruby') {
+        this.npmInstall(['gulp-ruby-sass'], { 'saveDev': true });
+      }
 
       done();
     }.bind(this));
@@ -123,19 +126,22 @@ module.exports = yeoman.generators.Base.extend({
       );
 
       // Gulpfile
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('gulpfile.js'),
-        this.destinationPath('gulpfile.js')
+        this.destinationPath('gulpfile.js'),
+        { props: this.props }
       );
 
       // Dependenices
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('_package.json'),
-        this.destinationPath('package.json')
+        this.destinationPath('package.json'),
+        { name: this.props.name }
       );
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('_bower.json'),
-        this.destinationPath('bower.json')
+        this.destinationPath('bower.json'),
+        { name: this.props.name }
       );
 
       // Config files
