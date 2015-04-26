@@ -91,8 +91,25 @@ module.exports = yeoman.generators.Base.extend({
     this.prompt(prompts, function (props) {
       this.props = props;
 
+      // Extra dependencies for Sass
       if (props.sass === 'ruby') {
         this.npmInstall(['gulp-ruby-sass'], { 'saveDev': true });
+      }
+
+      // Extra dependencies for JavaScript
+      if (props.javascript === 'es6') {
+        this.npmInstall(['gulp-babel'], { 'saveDev': true });
+      } else if (props.javascript === 'coffee') {
+        this.npmInstall(['gulp-coffee'], { 'saveDev': true });
+      }
+
+      // Extra dependencies for templating
+      if (props.templating === 'haml') {
+        this.npmInstall(['gulp-haml'], { 'saveDev': true });
+      } else if (props.templating === 'jade') {
+        this.npmInstall(['gulp-jade'], { 'saveDev': true });
+      } else if (props.templating === 'slim') {
+        this.npmInstall(['gulp-slim'], { 'saveDev': true });
       }
 
       done();
@@ -101,6 +118,8 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: {
     app: function () {
+      var appJS = this.props.javascript !== 'coffee' ? 'app.js' : 'app.coffee';
+
       // HTML files
       this.fs.copy(
         this.templatePath('index.html'),
@@ -121,8 +140,8 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath('client/assets/scss/_settings.scss')
       );
       this.fs.copy(
-        this.templatePath('app.js'),
-        this.destinationPath('client/assets/js/app.js')
+        this.templatePath(appJS),
+        this.destinationPath('client/assets/js/' + appJS)
       );
 
       // Gulpfile

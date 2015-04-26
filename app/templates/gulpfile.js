@@ -44,7 +44,8 @@ var paths = {
   ],
   // These files are for your app's JavaScript
   appJS: [
-    'client/assets/js/app.js'
+    <% if (props.javascript !== 'coffee') { %>'client/assets/js/app.js'
+    <% } else { %>'client/assets/js/app.coffee'<% } %>
   ]
 }
 
@@ -144,7 +145,9 @@ gulp.task('uglify:app', function() {
       console.log(e);
     }));
 
-  return gulp.src(paths.appJS)
+  return gulp.src(paths.appJS)<% if (props.javascript === 'coffee') { %>
+    .pipe($.coffee())<% } else if (props.javascript === 'es6') { %>
+    .pipe($.babel())<% } %>
     .pipe(uglify)
     .pipe($.concat('app.js'))
     .pipe(gulp.dest('./build/assets/js/'))
