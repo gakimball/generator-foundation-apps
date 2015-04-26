@@ -1,0 +1,17 @@
+doctype html
+html lang="en" ng-app="application"
+  head
+    meta charset="utf-8"
+    meta content="width=device-width, initial-scale=1.0" name="viewport"
+    title Foundation for Apps
+    link href="/assets/css/app.css" rel="stylesheet" type="text/css"
+    script src="/assets/js/foundation.js"
+    script src="/assets/js/templates.js"
+    script src="/assets/js/routes.js"
+    script src="/assets/js/app.js"
+  body
+    .grid-frame.vertical
+      .grid-content.shrink style="padding: 0;"
+        ul.primary.condense.menu-bar
+          li: a: strong Foundation for Apps
+      .grid-content ui-view=""

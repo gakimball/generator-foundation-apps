@@ -70,7 +70,7 @@ module.exports = yeoman.generators.Base.extend({
       message: 'Would you like to add an HTML templating language?',
       choices: [
         {
-          value: 'none',
+          value: 'html',
           name: 'Just plain HTML'
         },
         {
