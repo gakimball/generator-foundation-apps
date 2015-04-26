@@ -98,6 +98,37 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: {
     app: function () {
+      // HTML files
+      this.fs.copy(
+        this.templatePath('index.html'),
+        this.destinationPath('client/index.html')
+      );
+      this.fs.copy(
+        this.templatePath('home.html'),
+        this.destinationPath('client/templates/home.html')
+      );
+
+      // Static assets
+      this.fs.copy(
+        this.templatePath('app.scss'),
+        this.destinationPath('client/assets/scss/app.scss')
+      );
+      this.fs.copy(
+        this.templatePath('_settings.scss'),
+        this.destinationPath('client/assets/scss/_settings.scss')
+      );
+      this.fs.copy(
+        this.templatePath('app.js'),
+        this.destinationPath('client/assets/js/app.js')
+      );
+
+      // Gulpfile
+      this.fs.copy(
+        this.templatePath('gulpfile.js'),
+        this.destinationPath('gulpfile.js')
+      );
+
+      // Dependenices
       this.fs.copy(
         this.templatePath('_package.json'),
         this.destinationPath('package.json')
@@ -109,14 +140,7 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     projectfiles: function () {
-      this.fs.copy(
-        this.templatePath('editorconfig'),
-        this.destinationPath('.editorconfig')
-      );
-      this.fs.copy(
-        this.templatePath('jshintrc'),
-        this.destinationPath('.jshintrc')
-      );
+
     }
   },
 
