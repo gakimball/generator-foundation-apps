@@ -122,25 +122,25 @@ module.exports = yeoman.generators.Base.extend({
 
       // HTML files
       this.fs.copy(
-        this.templatePath('index.html'),
+        this.templatePath('pages/index.html'),
         this.destinationPath('client/index.html')
       );
       this.fs.copy(
-        this.templatePath('home.html'),
+        this.templatePath('pages/home.html'),
         this.destinationPath('client/templates/home.html')
       );
 
       // Static assets
       this.fs.copy(
-        this.templatePath('app.scss'),
+        this.templatePath('assets/app.scss'),
         this.destinationPath('client/assets/scss/app.scss')
       );
       this.fs.copy(
-        this.templatePath('_settings.scss'),
+        this.templatePath('assets/_settings.scss'),
         this.destinationPath('client/assets/scss/_settings.scss')
       );
       this.fs.copy(
-        this.templatePath(appJS),
+        this.templatePath('assets/' + appJS),
         this.destinationPath('client/assets/js/' + appJS)
       );
 
